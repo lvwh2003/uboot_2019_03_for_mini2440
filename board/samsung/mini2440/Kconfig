@@ -1,0 +1,75 @@
+if TARGET_MINI2440
+
+config SYS_BOARD
+	default "mini2440"
+
+config SYS_VENDOR
+	default "samsung"
+
+config SYS_SOC
+	default "s3c24x0"
+
+config SYS_CONFIG_NAME
+	default "mini2440"
+
+config CS8900
+       bool
+	default y
+
+config CS8900_BASE
+	hex
+	default 0x19000300
+
+config MINI2440
+	bool
+	default y
+
+config NAND_S3C2440
+	bool 
+	default y
+
+config RTC_S3C24X0
+	bool
+	default y
+
+config S3C2440
+	bool
+	default y
+
+config S3C24X0
+	bool
+	default y
+
+config S3C24X0_SERIAL
+	bool
+	default y
+
+config SERIAL1
+	bool
+	default y
+
+config SYS_GENERIC_BOARD
+	bool
+	default y
+
+config SYS_HUSH_PARSER
+	bool
+	default y
+
+config SYS_S3C2440_NAND_HWECC
+	bool
+	default y
+
+config USB_OHCI
+	bool
+	default y
+
+config USB_OHCI_S3C24XX
+	bool
+	default y
+
+config ZERO_BOOTDELAY_CHECK
+	bool
+	default y
+
+endif
