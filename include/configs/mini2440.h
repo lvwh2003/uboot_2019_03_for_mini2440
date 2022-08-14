@@ -20,8 +20,9 @@
 #define CONFIG_S3C24X0		/* This is a SAMSUNG S3C24x0-type SoC */
 #define CONFIG_S3C2440		/* specifically a SAMSUNG S3C2410 SoC */
 #define CONFIG_MINI2440		/* on a SAMSUNG SMDK2410 Board */
+#define CONFIG_S3C2440_NAND_BOOT
 
-//#define CONFIG_SYS_TEXT_BASE	0x0
+//#define CONFIG_SYS_TEXT_BASE	0x33A00000
 
 #define CONFIG_SYS_GENERIC_BOARD
 
@@ -37,9 +38,18 @@
 /*
  * Hardware drivers
  */
+#if 0
 #define CONFIG_CS8900		/* we have a CS8900 on-board */
 #define CONFIG_CS8900_BASE	0x19000300
 #define CONFIG_CS8900_BUS16	/* the Linux driver does accesses as shorts */
+#endif
+
+#define  CONFIG_NET_MULIT
+#define  CONFIG_DRIVER_DM9000  1
+#define  CONFIG_DM9000_NO_SROM 1
+#define  CONFIG_DM9000_BASE    0X20000300
+#define  DM9000_IO             CONFIG_DM9000_BASE
+#define  DM9000_DATA           (CONFIG_DM9000_BASE + 4)
 
 /*
  * select serial console configuration
@@ -94,9 +104,16 @@
 #define CONFIG_RESET_TO_RETRY
 #define CONFIG_ZERO_BOOTDELAY_CHECK
 
+#define CONFIG_ETHADDR          08:08:11:18:12:27 
 #define CONFIG_NETMASK		255.255.255.0
-#define CONFIG_IPADDR		10.0.0.110
-#define CONFIG_SERVERIP		10.0.0.1
+#define CONFIG_IPADDR		192.168.0.2
+#define CONFIG_SERVERIP		192.168.0.3
+#define CONFIG_GATEWAYIP        192.168.0.1
+#define CONFIG_OVERWRITE_ETHADDR_ONCE 
+#define CONFIG_CMD_PING
+
+#define CONFIG_EXTRA_ENV_SETTINGS                                       \
+"ethaddr=" __stringify(CONFIG_ETHADDR) "\0"                             \ 
 
 #if defined(CONFIG_CMD_KGDB)
 #define CONFIG_KGDB_BAUDRATE	115200	/* speed to run kgdb serial port */
@@ -160,7 +177,9 @@
  * Size of malloc() pool
  * BZIP2 / LZO / LZMA need a lot of RAM
  */
-#define CONFIG_SYS_MALLOC_LEN	(4 * 1024 * 1024)
+#define CONFIG_SYS_MALLOC_LEN	(CONFIG_ENV_SIZE + 128*1024)
+#define CONFIG_SYS_GBL_DATA_SIZE	128	/* size in bytes reserved for initial data */
+
 
 #define CONFIG_SYS_MONITOR_LEN	(448 * 1024)
 #define CONFIG_SYS_MONITOR_BASE	CONFIG_SYS_FLASH_BASE
@@ -173,6 +192,7 @@
 #define CONFIG_SYS_S3C2440_NAND_HWECC
 #define CONFIG_SYS_MAX_NAND_DEVICE	1
 #define CONFIG_SYS_NAND_BASE		0x4E000000
+#define CONFIG_SYS_NAND_DRIVER_ECC_LAYOUT
 #endif
 
 /*
@@ -187,6 +207,8 @@
 #define CONFIG_MTD_PARTITIONS
 #define CONFIG_YAFFS2
 #define CONFIG_RBTREE
+
+#define CONFIG_MINI2440_ASM_PRINT   1
 
 /* additions for new relocation code, must be added to all boards */
 #define CONFIG_SYS_SDRAM_BASE	PHYS_SDRAM_1

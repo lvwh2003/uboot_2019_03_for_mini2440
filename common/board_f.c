@@ -837,7 +837,7 @@ __weak int arch_cpu_init_dm(void)
 static const init_fnc_t init_sequence_f[] = {
 	setup_mon_len,
 #ifdef CONFIG_OF_CONTROL
-	fdtdec_setup,
+	fdtdec_setup,//get fdtdec_block address and check the  fdt block /header is available
 #endif
 #ifdef CONFIG_TRACE
 	trace_early_init,

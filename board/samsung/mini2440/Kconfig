@@ -12,13 +12,13 @@ config SYS_SOC
 config SYS_CONFIG_NAME
 	default "mini2440"
 
-config CS8900
+config DRIVER_DM9000
        bool
 	default y
 
-config CS8900_BASE
+config DM9000_BASE
 	hex
-	default 0x19000300
+	default 0x20000300
 
 config MINI2440
 	bool

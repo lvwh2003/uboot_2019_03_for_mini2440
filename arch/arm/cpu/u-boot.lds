@@ -43,6 +43,9 @@ SECTIONS
 		*(.__image_copy_start)
 		*(.vectors)
 		CPUDIR/start.o (.text*)
+		board/samsung/mini2440/lowlevel_init.o (.text*)
+		common/init/board_init.o (.text*)
+		board/samsung/mini2440/nand_read.o (.text*)
 	}
 
 	/* This needs to come before *(.text*) */

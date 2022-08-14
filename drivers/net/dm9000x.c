@@ -59,7 +59,7 @@ TODO: external MII is not functional, only internal at the moment.
 
 /* Board/System/Debug information/definition ---------------- */
 
-/* #define CONFIG_DM9000_DEBUG */
+//#define CONFIG_DM9000_DEBUG 
 
 #ifdef CONFIG_DM9000_DEBUG
 #define DM9000_DBG(fmt,args...) printf(fmt, ##args)
@@ -362,6 +362,7 @@ static int dm9000_init(struct eth_device *dev, bd_t *bd)
 	/* Enable TX/RX interrupt mask */
 	DM9000_iow(DM9000_IMR, IMR_PAR);
 
+	#ifndef CONFIG_MINI2440
 	i = 0;
 	while (!(dm9000_phy_read(1) & 0x20)) {	/* autonegation complete bit */
 		udelay(1000);
@@ -371,7 +372,7 @@ static int dm9000_init(struct eth_device *dev, bd_t *bd)
 			return 0;
 		}
 	}
-
+	#endif
 	/* see what we've got */
 	lnk = dm9000_phy_read(17) >> 12;
 	printf("operating at ");
@@ -586,7 +587,6 @@ static u16
 dm9000_phy_read(int reg)
 {
 	u16 val;
-
 	/* Fill the phyxcer register into REG_0C */
 	DM9000_iow(DM9000_EPAR, DM9000_PHY | reg);
 	DM9000_iow(DM9000_EPCR, 0xc);	/* Issue phyxcer read command */
